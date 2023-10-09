@@ -115,13 +115,16 @@ int sum(int arr[], int n)
  */
 double pie(long int n){
     /** Your CODE here **/
-	long double approximatePi = 1;
-	do {
-		approximatePi -= 1/(n*2+1);
-		n--;
-	} while(n>0);
-	return approximatePi;
-} 
+	double approximatePi = 1;
+    for(int i=1; i<n; i++) {
+        if(i%2==1) {
+            approximatePi -= 1.0/(i*2.0+1.0);
+        } else {
+            approximatePi += 1.0/(i*2.0+1.0);
+        }
+    }
+    return approximatePi*4;
+}
 
 
 /* Function: main
