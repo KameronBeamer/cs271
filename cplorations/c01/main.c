@@ -73,13 +73,13 @@ int max(int arr[], int n)
 {
     /** Your CODE here **/
 	int maxInArray = 0;
-	for(int i=0; i<sizeof(arr)/sizeof(arr[0]); i++) {
+	for(int i=0; i<n; i++) {
 		if(maxInArray < arr[i]) {
 			maxInArray = arr[i];
 		}
 	}
 	return maxInArray;
-}
+} 
 
 /* Function: sum
  * -------------
@@ -95,7 +95,7 @@ int sum(int arr[], int n)
 {
     /** Your CODE here **/
 	int sum = 0;
-	for(int i=0; i<sizeof(arr)/sizeof(arr[0]); i++) {
+	for(int i=0; i<n; i++) {
 		sum += arr[i];
 	}
 	return sum;
