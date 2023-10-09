@@ -50,11 +50,11 @@ int fib(int n)
 	int placeholderInt = 0;
 	
 	do {
-		placeholderInt = currentFib;
+		placeholderInt = previosFib;
 		previosFib = currentFib;
-		currentFib = placeholderInt + previosFib;
+		currentFib += placeholderInt;
 		n--;
-	} while(n>0);
+	} while(n>1);
 	return currentFib;
 }
  
@@ -73,7 +73,7 @@ int max(int arr[], int n)
 {
     /** Your CODE here **/
 	int maxInArray = 0;
-	for(int i=0; i<sizeof(arr[0]); i++) {
+	for(int i=0; i<sizeof(arr)/sizeof(arr[0]); i++) {
 		if(maxInArray < arr[i]) {
 			maxInArray = arr[i];
 		}
@@ -95,7 +95,7 @@ int sum(int arr[], int n)
 {
     /** Your CODE here **/
 	int sum = 0;
-	for(int i=0; i<sizeof(arr[0]); i++) {
+	for(int i=0; i<sizeof(arr)/sizeof(arr[0]); i++) {
 		sum += arr[i];
 	}
 	return sum;
