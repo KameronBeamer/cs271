@@ -94,6 +94,13 @@ int vowels(char* txt) {
 	int vowel = 0;
 
 	/* REPLACE WITH YOUR CODE */
+	int len = 0;
+	while(txt[len] != '\0') {
+		if(txt[len] == 'a' || txt[len] == 'A' || txt[len] == 'e' || txt[len] == 'E' || txt[len] == 'i' || txt[len] == 'I' || txt[len] == 'o' || txt[len] == 'O' || txt[len] == 'u' || txt[len] == 'U') {
+			vowel++;
+		}
+		len++;
+	}
 
 	return vowel;
 }
