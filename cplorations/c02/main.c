@@ -123,8 +123,22 @@ int vowels(char* txt) {
 int quartile(char* name) {
 
 	/* REPLACE WITH YOUR CODE */
+	int quart = -1;
+	char* second_quartile_marker = "E";
+	char* third_quartile_marker = "M";
+	char* fourth_quartile_marker = "S";
 	
-	return -1; // <==fix!
+	if(strcmp(name, second_quartile_marker) == -1) {
+		quart = 1;
+	} else if(strcmp(name, third_quartile_marker) == -1) {
+		quart = 2;
+	} else if(strcmp(name, fourth_quartile_marker) == -1) {
+		quart = 3;
+	} else if(strcmp(name, fourth_quartile_marker) == 1) {
+		quart = 4;
+	}
+	
+	return quart;
 }
 
 
