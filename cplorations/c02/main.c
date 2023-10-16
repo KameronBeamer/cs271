@@ -26,8 +26,9 @@
 int length(char* txt) {
 	int len = 0;
 
-	while(txt[len] != '\0')
+	while(txt[len] != '\0') {
 		len++;
+	}
 
 	return len;
 }
@@ -72,7 +73,11 @@ char *welcome(char* hello, char* name) {
 void reverse(char* txt, char* result) {
 
 	/* REPLACE WITH YOUR CODE */
-	
+	int len = length(txt)-1;
+	for(int i = 0; i < length(txt); i++) {
+		result[i] = txt[len];
+		len--;
+	}	
 }
 
 
