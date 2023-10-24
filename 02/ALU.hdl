@@ -43,4 +43,37 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
+   // zx
+   Mux16(a=x, b=false, sel=zx, out=x1);
+   
+   // nx
+   Not16(in=x1, out=notx);
+   Mux16(a=x1, b=notx, sel=nx, out=x2);
+   
+   // zy
+   Mux16(a=y, b=false, sel=zy, out=y1);
+   
+   // ny
+   Not16(in=y1, out=noty);
+   Mux16(a=y1, b=noty, sel=ny, out=y2);
+   
+   // f
+   And16(a=x2, b=y2, out=oAnd);
+   Add16(a=x2, b=y2, out=oAdd);
+   Mux16(a=oAnd, b=oAdd, sel=f, out=o1);
+   
+   // no
+   Not16(in=o1, out=notout);
+   Mux16(a=o1, b=notout, out[0..7]=leftout, out[8..15]=rightout, sel=no, out=out);
+   
+   // zr
+   // credit to redditor levimk for explaining how to use left and right out
+   // Or8Way(in=leftout, out=or1);
+   // Or8Way(in=rightout, out=or2);
+   // Or(a=or1, b=or2, out=notzr);
+   // Not(in=notzr, out=zr);
+   
+   // ng
+   // Or(a=or1, b=or2, out=ng);
+   
 }
