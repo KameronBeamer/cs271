@@ -7,7 +7,6 @@
  ****************************************/
 #include "parser.h"
 
-
 /* Function: strip
  * -------------
  * remove whitespace and comments from a line
@@ -62,7 +61,7 @@ void parse(FILE * file){
 			} else if(is_label(line)) {
 			//	inst_type = 'L';
 				strcpy(line, extract_label(line, line));
-				symtable_insert(line, hashCode(line));
+				symtable_insert(line, hash(line));
 			} else if(is_Ctype(line)) {
 			//	inst_type = 'C';
 			}
@@ -89,6 +88,7 @@ bool is_Atype(const char *line) {
  * returns if line is a label
  */
 bool is_label(const char *line) {
+	//symtable_insert(line, hash(line));
 	if(line[0] != '(') {
 		return false;
 	} else if(line[strlen(line)-1] != ')') {
