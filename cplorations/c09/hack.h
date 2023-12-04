@@ -6,6 +6,11 @@
 #define NUM_PREDEFINED_SYMBOLS 23
 
 typedef enum symbol_id {
+	SYM_SP = 0,
+	SYM_LCL,
+	SYM_ARG,
+	SYM_THIS,
+	SYM_THAT,
 	SYM_R0 = 0,
 	SYM_R1,
 	SYM_R2,
@@ -22,11 +27,6 @@ typedef enum symbol_id {
 	SYM_R13,
 	SYM_R14,
 	SYM_R15,
-	SYM_SP = 0,
-	SYM_LCL,
-	SYM_ARG,
-	SYM_THIS,
-	SYM_THAT,
 	SYM_SCREEN = 16384,
 	SYM_KBD = 24576
 } symbol_id;
@@ -37,6 +37,11 @@ typedef struct predefined_symbol {
 } predefined_symbol;
 
 static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
+	{"SP", SYM_SP},
+	{"LCL", SYM_LCL},
+	{"ARG", SYM_ARG},
+	{"THIS", SYM_THIS},
+	{"THAT", SYM_THAT},
 	{"R0", SYM_R0},
 	{"R1", SYM_R1},
 	{"R2", SYM_R2},
@@ -53,11 +58,6 @@ static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
 	{"R13", SYM_R13},
 	{"R14", SYM_R14},
 	{"R15", SYM_R15},
-	{"SP", SYM_SP},
-	{"LCL", SYM_LCL},
-	{"ARG", SYM_ARG},
-	{"THAT", SYM_THAT},
-	{"THIS", SYM_THIS},
 	{"SCREEN", SYM_SCREEN},
 	{"KBD", SYM_KBD},
 };

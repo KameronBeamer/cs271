@@ -42,7 +42,35 @@ void parse(FILE * file);
 
 void add_predefined_symbols();
 
-bool parse_A_instruction(const char *line, a_instruction *instr)
+enum instr_type {
+	Invalid = -1,
+	A_Type,
+	C_Type,
+};
 
+typedef struct a_instruction {
+	union a_type_choice {
+		hack_addr address:16;
+		char *label;
+	};
+	bool is_addr;
+} a_instruction;
+
+typedef struct c_instruction {
+	opcode a:1;
+	opcode comp:6;
+	opcode dest:3;
+	opcode jump:3;
+} c_instruction;
+
+typedef struct instruction {
+	union instruction_type {
+		a_instruction A_Type;
+		c_instruction C_Type;
+	};
+	enum instr_type field;
+} instruction;
+
+bool parse_A_instruction(const char *line, a_instruction *instr);
 
 #endif
