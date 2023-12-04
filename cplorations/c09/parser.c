@@ -46,31 +46,55 @@ char *strip(char *s){
  */
 void parse(FILE * file){
 	
-	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
 	unsigned int line_num = 0;
+	unsigned int instr_num = 0;
+	
+	add_predefined_symbols();
 	
 	while (fgets(line, sizeof(line), file)) {
+		
+		// skip if a comment or starts blank, temporary fix
+		if((line[0] == '/' && line[1] == '/') || line[0] == '\n') {
+			continue;
+		}
+		
+		line_num ++;
+		
+		if(instr_num > MAX_INSTRUCTIONS) {
+			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
+		}
+		
 		strip(line);
+		
 		if(*line) {
 			
-			//char inst_type = ' ';
+			char inst_type = ' ';
 			// Determines line type
 			if(is_Atype(line)) {
-			//	inst_type = 'A';
+				inst_type = 'A';
 			} else if(is_label(line)) {
-			//	inst_type = 'L';
+				inst_type = 'L';
 				strcpy(line, extract_label(line, line));
-				symtable_insert(line, hash(line));
+				
+				if(!isalpha(line[0])) {
+					exit_program(EXIT_INVALID_LABEL, line_num, line);
+				} else if((symtable_find(line))) {
+					exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
+				} else {
+					symtable_insert(line, instr_num);
+					continue;
+				}
+				
 			} else if(is_Ctype(line)) {
-			//	inst_type = 'C';
+				inst_type = 'C';
 			}
 			
-			
-			
 			//printf("%c  %s\n", inst_type, line);
+			printf("%u: %c  %s\n", instr_num, inst_type, line);
 		}
-		line_num ++;
+		
+		instr_num++;
 	}
 	
 }
@@ -88,7 +112,6 @@ bool is_Atype(const char *line) {
  * returns if line is a label
  */
 bool is_label(const char *line) {
-	//symtable_insert(line, hash(line));
 	if(line[0] != '(') {
 		return false;
 	} else if(line[strlen(line)-1] != ')') {
@@ -150,5 +173,43 @@ typedef struct instruction {
 	enum instr_type field;
 } instruction;
 
+/*
+ *
+ */
+void add_predefined_symbols() {
+	
+	for(int i = 0; i < NUM_PREDEFINED_SYMBOLS; i++) {
+
+		//struct predefined_symbol *item = (struct predefined_symbol*) malloc(sizeof(struct predefined_symbol));
+		predefined_symbol item = predefined_symbols[i];
+		/*
+		item->address = predefined_symbols[i]->address;  
+		item->name = strdup(predefined_symbols[i][0]);
+		*/
 		
+		symtable_insert(item.name, item.address);
+	}
+
+}	
  
+/*
+ *
+ */ 
+bool parse_A_instruction(const char *line, struct a_instruction *instr) {
+	char* s = (char*)malloc(strlen(line));
+	strcpy(s, line+1);
+	char* s_end = NULL;
+	long result = strtol(s, &s_end, 10);
+	
+	if((s = s_end)) {
+		instr->label = malloc(strlen(line));
+		strcpy(instr->label, s);
+		instr->is_addr = false;
+	} else if(*s_end != 0) {
+		return false;
+	} else {
+		instr->address = result;
+		instr->is_addr = true;
+	}
+	return true;
+}

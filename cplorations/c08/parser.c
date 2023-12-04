@@ -6,8 +6,6 @@
  * 
  ****************************************/
 #include "parser.h"
-#include "symtable.h"
-
 
 /* Function: strip
  * -------------
@@ -48,31 +46,53 @@ char *strip(char *s){
  */
 void parse(FILE * file){
 	
-	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
 	unsigned int line_num = 0;
+	unsigned int instr_num = 0;
 	
 	while (fgets(line, sizeof(line), file)) {
+		
+		// skip if a comment or starts blank, temporary fix
+		if((line[0] == '/' && line[1] == '/') || line[0] == '\n') {
+			continue;
+		}
+		
+		line_num ++;
+		
+		if(instr_num > MAX_INSTRUCTIONS) {
+			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
+		}
+		
 		strip(line);
+		
 		if(*line) {
 			
-			//char inst_type = ' ';
+			char inst_type = ' ';
 			// Determines line type
 			if(is_Atype(line)) {
-			//	inst_type = 'A';
+				inst_type = 'A';
 			} else if(is_label(line)) {
-			//	inst_type = 'L';
+				inst_type = 'L';
 				strcpy(line, extract_label(line, line));
-				symtable_insert(line, hashCode(line));
+				
+				if(!isalpha(line[0])) {
+					exit_program(EXIT_INVALID_LABEL, line_num, line);
+				} else if((symtable_find(line))) {
+					exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
+				} else {
+					symtable_insert(line, instr_num);
+					continue;
+				}
+				
 			} else if(is_Ctype(line)) {
-			//	inst_type = 'C';
+				inst_type = 'C';
 			}
 			
-			
-			
 			//printf("%c  %s\n", inst_type, line);
+			printf("%u: %c  %s\n", instr_num, inst_type, line);
 		}
-		line_num ++;
+		
+		instr_num++;
 	}
 	
 }

@@ -41,10 +41,11 @@ struct Symbol *symtable_find(char *name) {
 
 void symtable_insert(char *name, hack_addr addr) {
 
-   struct Symbol *item = (struct Symbol*) malloc(sizeof(struct Symbol));
-   item->addr = addr;  
-   item->name = strdup(name);
-
+	struct Symbol *item = (struct Symbol*) malloc(sizeof(struct Symbol));
+	item->addr = addr;
+	item->name = (char*)malloc(strlen(name) + 1);
+	strcpy(item->name, name);
+   
    //get the hash 
    int hashIndex = hashCode(name);
 
