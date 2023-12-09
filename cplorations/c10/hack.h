@@ -122,52 +122,138 @@ static inline jump_id str_to_jumpid(const char *s) {
 	jump_id = JMP_INVALID;
 	
 	if(s == NULL) {
-		id = JMP_NULL;
+		jump_id = JMP_NULL;
 	} else if((strcomp(s, "JGT") == 0)) {
-		id = JMP_JGT;
+		jump_id = JMP_JGT;
 	} else if((strcomp(s, "JEQ") == 0)) {
-		id = JMP_JEQ;
+		jump_id = JMP_JEQ;
 	} else if((strcomp(s, "JGE") == 0)) {
-		id = JMP_JGE;
+		jump_id = JMP_JGE;
 	} else if((strcomp(s, "JLT") == 0)) {
-		id = JMP_JLT;
+		jump_id = JMP_JLT;
 	} else if((strcomp(s, "JNE") == 0)) {
-		id = JMP_JNE;
+		jump_id = JMP_JNE;
 	} else if((strcomp(s, "JLE") == 0)) {
-		id = JMP_JLE;
+		jump_id = JMP_JLE;
 	} else if((strcomp(s, "JMP") == 0)) {
-		id = JMP_JMP;
+		jump_id = JMP_JMP;
 	}
 	
 	return jump_id;
 }
 
 static inline dest_id str_to_destid(const char *s) {
-	dest_id = JMP_INVALID;
+	dest_id = DEST_INVALID;
 	
 	if(s == NULL) {
-		id = DEST_NULL;
+		dest_id = DEST_NULL;
 	} else if((strcomp(s, "M") == 0)) {
-		id = DEST_M;
+		dest_id = DEST_M;
 	} else if((strcomp(s, "D") == 0)) {
-		id = DEST_D;
+		dest_id = DEST_D;
 	} else if((strcomp(s, "MD") == 0)) {
-		id = DEST_MD;
+		dest_id = DEST_MD;
 	} else if((strcomp(s, "A") == 0)) {
-		id = DEST_A;
+		dest_id = DEST_A;
 	} else if((strcomp(s, "AM") == 0)) {
-		id = DEST_AM;
+		dest_id = DEST_AM;
 	} else if((strcomp(s, "AD") == 0)) {
-		id = DEST_AD;
+		dest_id = DEST_AD;
 	} else if((strcomp(s, "AMD") == 0)) {
-		id = DEST_AMD;
+		dest_id = DEST_AMD;
 	}
 	
 	return dest_id;
 }
 
-
-
-
+static inline comp_id str_to_compid(const char *s, int *a) {
+	comp_id = COMP_INVALID;
+	
+	if((strcomp(s, "0") == 0)) {
+		comp_id = COMP_0;
+		*a = 0;
+	} else if ((strcomp(s, "1") == 0)) {
+		comp_id = COMP_1;
+		*a = 0;
+	} else if ((strcomp(s, "-1") == 0)) {
+		comp_id = COMP_MINUS_1;
+		*a = 0;
+	} else if ((strcomp(s, "D") == 0)) {
+		comp_id = COMP_D;
+		*a = 0;
+	} else if ((strcomp(s, "A") == 0)) {
+		comp_id = COMP_A;
+		*a = 0;
+	} else if ((strcomp(s, "!D") == 0)) {
+		comp_id = COMP_NOT_D;
+		*a = 0;
+	} else if ((strcomp(s, "!A") == 0)) {
+		comp_id = COMP_NOT_A;
+		*a = 0;
+	} else if ((strcomp(s, "-D") == 0)) {
+		comp_id = COMP_MINUS_D;
+		*a = 0;
+	} else if ((strcomp(s, "-A") == 0)) {
+		comp_id = COMP_MINUS_A;
+		*a = 0;
+	} else if ((strcomp(s, "D+1") == 0)) {
+		comp_id = COMP_D_PLUS_1;
+		*a = 0;
+	} else if ((strcomp(s, "A+1") == 0)) {
+		comp_id = COMP_A_PLUS_1;
+		*a = 0;
+	} else if ((strcomp(s, "D-1") == 0)) {
+		comp_id = COMP_D_MINUS_1;
+		*a = 0;
+	} else if ((strcomp(s, "A-1") == 0)) {
+		comp_id = COMP_A_MINUS_1;
+		*a = 0;
+	} else if ((strcomp(s, "D+A") == 0)) {
+		comp_id = COMP_D_PLUS_A;
+		*a = 0;
+	} else if ((strcomp(s, "D-A") == 0)) {
+		comp_id = COMP_D_MINUS_A;
+		*a = 0;
+	} else if ((strcomp(s, "A-D") == 0)) {
+		comp_id = COMP_A_MINUS_D;
+		*a = 0;
+	} else if ((strcomp(s, "D&A") == 0)) {
+		comp_id = COMP_D_AND_A;
+		*a = 0;
+	} else if ((strcomp(s, "D|A") == 0)) {
+		comp_id = COMP_D_OR_A;
+		*a = 0;
+	} else if ((strcomp(s, "M") == 0)) {
+		comp_id = COMP_M;
+		*a = 1;
+	} else if ((strcomp(s, "!M") == 0)) {
+		comp_id = COMP_NOT_M;
+		*a = 1;
+	} else if ((strcomp(s, "-M") == 0)) {
+		comp_id = COMP_MINUS_M;
+		*a = 1;
+	} else if ((strcomp(s, "M+1") == 0)) {
+		comp_id = COMP_M_PLUS_1;
+		*a = 1;
+	} else if ((strcomp(s, "M-1") == 0)) {
+		comp_id = COMP_MINUS_1;
+		*a = 1;
+	} else if ((strcomp(s, "D+M") == 0)) {
+		comp_id = COMP_D_PLUS_M;
+		*a = 1;
+	} else if ((strcomp(s, "D-M") == 0)) {
+		comp_id = COMP_D_MINUS_M;
+		*a = 1;
+	} else if ((strcomp(s, "M-D") == 0)) {
+		comp_id = COMP_M_MINUS_D;
+		*a = 1;
+	} else if ((strcomp(s, "D&M") == 0)) {
+		comp_id = COMP_D_AND_M;
+		*a = 1;
+	} else if ((strcomp(s, "D|M") == 0)) {
+		comp_id = COMP_D_OR_M;
+		*a = 1;
+	}
+}
 
 #endif
