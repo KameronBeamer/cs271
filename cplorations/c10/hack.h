@@ -118,5 +118,29 @@ typedef enum comp_id {
 	COMP_D_OR_M = 85
 } comp_id;
 
+static inline jump_id str_to_jumpid(const char *s) {
+	jump_id = JMP_INVALID;
+	
+	if(s == NULL) {
+		id = JMP_NULL;
+	} else if((strcomp(line, "JGT") == 0)) {
+		id = JMP_JGT;
+	} else if((strcomp(line, "JEQ") == 0)) {
+		id = JMP_JEQ;
+	} else if((strcomp(line, "JGE") == 0)) {
+		id = JMP_JGE;
+	} else if((strcomp(line, "JLT") == 0)) {
+		id = JMP_JLT;
+	} else if((strcomp(line, "JNE") == 0)) {
+		id = JMP_JNE;
+	} else if((strcomp(line, "JLE") == 0)) {
+		id = JMP_JLE;
+	} else if((strcomp(line, "JMP") == 0)) {
+		id = JMP_JMP;
+	}
+	
+	return jump_id;
+}
+
 
 #endif
