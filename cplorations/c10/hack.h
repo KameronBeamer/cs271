@@ -123,24 +123,51 @@ static inline jump_id str_to_jumpid(const char *s) {
 	
 	if(s == NULL) {
 		id = JMP_NULL;
-	} else if((strcomp(line, "JGT") == 0)) {
+	} else if((strcomp(s, "JGT") == 0)) {
 		id = JMP_JGT;
-	} else if((strcomp(line, "JEQ") == 0)) {
+	} else if((strcomp(s, "JEQ") == 0)) {
 		id = JMP_JEQ;
-	} else if((strcomp(line, "JGE") == 0)) {
+	} else if((strcomp(s, "JGE") == 0)) {
 		id = JMP_JGE;
-	} else if((strcomp(line, "JLT") == 0)) {
+	} else if((strcomp(s, "JLT") == 0)) {
 		id = JMP_JLT;
-	} else if((strcomp(line, "JNE") == 0)) {
+	} else if((strcomp(s, "JNE") == 0)) {
 		id = JMP_JNE;
-	} else if((strcomp(line, "JLE") == 0)) {
+	} else if((strcomp(s, "JLE") == 0)) {
 		id = JMP_JLE;
-	} else if((strcomp(line, "JMP") == 0)) {
+	} else if((strcomp(s, "JMP") == 0)) {
 		id = JMP_JMP;
 	}
 	
 	return jump_id;
 }
+
+static inline dest_id str_to_destid(const char *s) {
+	dest_id = JMP_INVALID;
+	
+	if(s == NULL) {
+		id = DEST_NULL;
+	} else if((strcomp(s, "M") == 0)) {
+		id = DEST_M;
+	} else if((strcomp(s, "D") == 0)) {
+		id = DEST_D;
+	} else if((strcomp(s, "MD") == 0)) {
+		id = DEST_MD;
+	} else if((strcomp(s, "A") == 0)) {
+		id = DEST_A;
+	} else if((strcomp(s, "AM") == 0)) {
+		id = DEST_AM;
+	} else if((strcomp(s, "AD") == 0)) {
+		id = DEST_AD;
+	} else if((strcomp(s, "AMD") == 0)) {
+		id = DEST_AMD;
+	}
+	
+	return dest_id;
+}
+
+
+
 
 
 #endif
