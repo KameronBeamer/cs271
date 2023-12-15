@@ -4,6 +4,24 @@
 #include <stdint.h>
 
 #define NUM_PREDEFINED_SYMBOLS 23
+#define OPCODE_TO_BINARY(opcode) \
+  (opcode & 0x8000 ? '1' : '0'), \
+  (opcode & 0x8001 ? '1' : '0'), \
+  (opcode & 0x8002 ? '1' : '0'), \
+  (opcode & 0x8003 ? '1' : '0'), \
+  (opcode & 0x8004 ? '1' : '0'), \
+  (opcode & 0x8005 ? '1' : '0'), \
+  (opcode & 0x8006 ? '1' : '0'), \
+  (opcode & 0x8007 ? '1' : '0'), \
+  (opcode & 0x8008 ? '1' : '0'), \
+  (opcode & 0x8009 ? '1' : '0'), \
+  (opcode & 0x800a ? '1' : '0'), \
+  (opcode & 0x800b ? '1' : '0'), \
+  (opcode & 0x800c ? '1' : '0'), \
+  (opcode & 0x800d ? '1' : '0'), \
+  (opcode & 0x800e ? '1' : '0'), \
+  (opcode & 0x800f ? '1' : '0')
+  
 
 typedef enum symbol_id {
 	SYM_SP = 0,
