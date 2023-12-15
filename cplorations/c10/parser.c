@@ -223,7 +223,6 @@ void parse_C_instruction(char *line, c_instruction *instr) {
 		dest = swap;
 	}
 	
-	
 	instr->jump = str_to_jumpid(jump);
 	instr->dest = str_to_destid(dest);
 	instr->comp = str_to_compid(comp, &a);

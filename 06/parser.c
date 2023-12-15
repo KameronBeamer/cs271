@@ -267,11 +267,14 @@ void assemble(const char * file_name, instruction* instructions, int num_instruc
 			op = instr.instr.a.operand.address;
 			
 		} else /* if(instr.instr.c) */ {
-			//instruction_to_opcode
-			//OPCODE_TO_BINARY
+			op = instruction_to_opcode(instr.instr.c);
 			
+			opcode op_to_bin = OPCODE_TO_BINARY(op);
+			
+			printf("%c\n", op_to_bin);
 		}
 		
+		printf("%d", op);
 		instr_num++;
 	}
 	
@@ -288,3 +291,4 @@ opcode instruction_to_opcode(c_instruction instr) {
 	
 	return op;
 }
+
