@@ -62,6 +62,7 @@ int parse(FILE * file, instruction *instructions) {
 			continue;
 		}
 		
+		
 		if(instr_num > MAX_INSTRUCTIONS) {
 			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
 		}
@@ -229,4 +230,50 @@ void parse_C_instruction(char *line, c_instruction *instr) {
 	instr->comp = str_to_compid(comp, &a);
 	instr->a = (instr->comp >= 0) ? 0 : 1;
 	
+}
+
+/*
+ * Function: Assemble
+ * ------------------
+ * Convenverts ___ from one file to machine code to a respective hack file
+ */
+void assemble(const char * file_name, instruction* instructions, int num_instructions) {
+	// open or create new file to write to
+	char *hack_name = file_name;
+	strcat(hack_name, ".hack");
+	FILE *hack_file = fopen(hack_name, "w" );
+	
+	int instr_num = 0;
+	instruction instr;
+	opcode op = 0;
+	int variable_num = 16;
+	
+	while(instr_num <= num_instructions) {
+		instr = instructions[instr_num];
+		
+		if(!instr.instr.a.is_addr){
+			hack_addr symbol = symtable_find(instr.instr.a.operand);
+			
+			if(symbol == NULL) {
+				symtable_insert(instr.instr.a.operand, variable_num);
+				symbol = symtable_find(instr.instr.a.operand);
+			}
+			
+			op = symbol;
+			
+			// currently unsure what to be freeing
+			//free(instr);
+		} else if(instr.instr.a.is_addr) {
+			op = instr.instr.a.operand.address;
+			
+		} else /* if(instr.instr.c) */ {
+			//instruction_to_opcode
+			//OPCODE_TO_BINARY
+			
+		}
+		
+		instr_num++;
+	}
+	
+	fclose(hack_file);
 }

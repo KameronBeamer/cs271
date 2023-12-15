@@ -33,6 +33,9 @@ int main(int argc, const char *argv[])
 	//symtable_display_table();
 	
 	fclose(fin);
+
+	assemble(argv[1], instructions, num_instructions);
+
 	free(instructions);
 
 	return 1;
